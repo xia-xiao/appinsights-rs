@@ -48,7 +48,9 @@ impl InMemoryChannel {
 
         if let Some(thread) = self.thread.take() {
             debug!("Shutting down worker");
-            thread.join().unwrap();
+            if let Err(e) = thread.join() {
+                warn!("Error {:?} joining thread", e);
+            }
         }
     }
 
