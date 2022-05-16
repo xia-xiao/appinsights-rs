@@ -98,7 +98,7 @@ impl From<(TelemetryContext, EventTelemetry)> for Envelope {
     fn from((context, telemetry): (TelemetryContext, EventTelemetry)) -> Self {
         Self {
             name: "Microsoft.ApplicationInsights.Event".into(),
-            time: telemetry.timestamp.to_rfc3339_opts(SecondsFormat::Millis, true),
+            time: telemetry.timestamp.to_rfc3339_opts(SecondsFormat::Nanos, true),
             i_key: Some(context.i_key),
             tags: Some(ContextTags::combine(context.tags, telemetry.tags).into()),
             data: Some(Base::Data(Data::EventData(EventData {
